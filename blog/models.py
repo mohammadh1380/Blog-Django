@@ -5,6 +5,7 @@ from django.utils import timezone
 
 # Create your models here.
 
+
 class Category(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=60, unique=True)
@@ -16,12 +17,6 @@ class Category(models.Model):
         return self.title
 
 
-# class authUsers(User):
-#     def user(self):
-#         if User.is_staff:
-#             return User
-
-
 class Article(models.Model):
     STATUS_CHOICE = (
         ('p', 'publish'),
@@ -30,11 +25,10 @@ class Article(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=60, unique=True)
     content = models.TextField()
-    cover = models.ImageField(upload_to="media/articleCover")
+    cover = models.ImageField(upload_to="articleCover")
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     publish = models.DateTimeField(default=timezone.now)
-    auth = models.OneToOneField(User, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
     status = models.CharField(max_length=1, choices=STATUS_CHOICE)
 
