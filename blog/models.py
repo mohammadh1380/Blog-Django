@@ -22,6 +22,7 @@ class Article(models.Model):
         ('p', 'publish'),
         ('d', 'draft'),
     )
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='articles')
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=60, unique=True)
     content = models.TextField()
@@ -29,7 +30,7 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     publish = models.DateTimeField(default=timezone.now)
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, related_name='articles')
     status = models.CharField(max_length=1, choices=STATUS_CHOICE)
 
     def __str__(self):
