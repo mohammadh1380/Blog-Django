@@ -20,6 +20,10 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         {{article.content | linebreaks}}
+                        <hr>
+                        {% for cat in  article.category.all %}
+                                <a href="#">#{{ cat }}</a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

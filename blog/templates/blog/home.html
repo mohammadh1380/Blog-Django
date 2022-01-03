@@ -1,1 +1,54 @@
-<a href="http://127.0.0.1:8000/admin/">Go to admin panel (first create super user)</a>
+{% extends 'base.html' %}
+{% load static %}
+{% load base_tag %}
+{% block main %}
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url({% static 'blog/assets/img/home-bg.jpg' %})">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>{% title %}</h1>
+                            <span class="subheading">A Blog Article</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                    {% for article in articles %}
+                        <div class="post-preview">
+                            <a href="{% url 'blog:post' article.slug %}">
+                                <h2 class="post-title">{{article.title}}</h2>
+                                <h3 class="post-subtitle">{{article.content | linebreaks | truncatewords:20}}</h3>
+                            </a>
+                            {% for cat in  article.category.all %}
+                                <a href="#">#{{ cat }}</a>
+                            {% endfor %}
+                            <p class="post-meta">
+                                Posted by
+                                <a href="#!">{{article.author}}</a>
+                                {{article.publish}}
+                            </p>
+                        </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                    {% endfor %}
+                    <!-- Pager-->
+                    <div class="d-flex justify-content-end mb-4">
+                        {% if page_obj.has_next %}
+                            <a class="btn btn-primary text-uppercase m-3" href="?page={{ page_obj.next_page_number }}">← Older Posts</a>
+                        {% endif %}
+                        {% if page_obj.has_previous %}
+                            <a class="btn btn-primary text-uppercase m-3" href="?page={{ page_obj.previous_page_number }}">New Posts →</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

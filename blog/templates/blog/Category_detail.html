@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url({% static 'blog/assets/img/home-bg.jpg' %})">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>{{category.title}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        {% for article in  category.articles.all %}
+                            <a href="{% url 'blog:post' article.slug %}">
+                                <h2 class="post-title">{{article.title}}</h2>
+                                <h4 class="post-subtitle">{{article.content | linebreaks | truncatewords:20}}</h4>
+                            </a>
+                            {% for cat in  article.category.all %}
+                                <a href="#">#{{ cat }}</a>
+                            {% endfor %}
+                            <p class="post-meta">
+                                Posted by
+                                <a href="#!">{{article.author}}</a>
+                                {{article.publish}}
+                            </p>
+                            <hr class="my-4" />
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </article>
+{% endblock %}
