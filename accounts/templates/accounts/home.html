@@ -1,2 +1,7 @@
-<h1>{{user.username}}</h1>
-<a href="{% url 'accounts:logout' %}">logout</a>
+{% if request.user.is_staff %}
+    <h1>{{user.username}}</h1>
+    <a href="{% url 'accounts:logout' %}">logout</a>
+{% else %}
+    <p>access denied</p>
+    <a href="{% url 'blog:home' %}">back to home</a>
+{% endif %}

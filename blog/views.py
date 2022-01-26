@@ -48,3 +48,7 @@ class DeleteArticle(generic.DetailView):
 
 class UpdateArticle(generic.UpdateView):
     template_name = "blog/update_article.html"
+
+
+class Contact(generic.TemplateView):
+    template_name = "blog/contact.html"

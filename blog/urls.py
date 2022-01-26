@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import HomeView, PostView, CategoriesList, CategoryView
+from .views import HomeView, PostView, CategoriesList, CategoryView, Contact
 
 app_name = 'blog'
 
@@ -10,6 +10,7 @@ urlpatterns = [
     path('article/<slug:slug>/', PostView.as_view(), name='post'),
     path('category/', CategoriesList.as_view(), name='category'),
     path('category/<slug:slug>/', CategoryView.as_view(), name="categoryDetail"),
+    path('contact/', Contact.as_view(), name='contact')
 ]
 
 
